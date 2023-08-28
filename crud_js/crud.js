@@ -45,30 +45,37 @@ submit.onclick = function (){
         category:category.value.toLowerCase(),
     }
     
-    
-    if(mood === 'create'){
-        //count
-        if(newPro.count > 1){
-            for(let i=0; i < newPro.count; i++){
+    if(title.value != '' 
+        && price.value != '' 
+        && category.value != '' 
+        && newPro.count < 100){
+        if(mood === 'create'){
+            //count
+            if(newPro.count > 1){
+                for(let i=0; i < newPro.count; i++){
+                    dataPro.push(newPro);
+                }
+            }else{
                 dataPro.push(newPro);
             }
+            //
         }else{
-            dataPro.push(newPro);
+            dataPro[tmp] = newPro; //dataPro[i] = newPro;
+            mood = 'create';
+            submit.innerHTML = 'Create';
+            count.style.display = 'block';
+            total.style.background = 'green';
         }
-        //
-    }else{
-        dataPro[tmp] = newPro; //dataPro[i] = newPro;
-        mood = 'create';
-        submit.innerHTML = 'Create';
-        count.style.display = 'block';
-        total.style.background = 'green';
+        clearData();
     }
     
     
-    //Save localstorage
+    
+    
+    //-------Save localstorage------
     localStorage.setItem('product', JSON.stringify(dataPro));
 
-    clearData();
+    //clearData();
     showData();
     
 }
@@ -223,6 +230,10 @@ function searchData(value)
     }
     document.getElementById('tbody').innerHTML = table;
 }
+
+
+
+
 
 
 
